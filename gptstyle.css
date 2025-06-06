@@ -1,0 +1,342 @@
+/* =========================================================================
+   Minesweeper Redesign
+   Replaces your original minesweeper.css with a cleaner, more modern style
+   • Softer overall page background
+   • Clean tile hover / click states
+   • Consistent typography
+   • Better contrast on buttons, headings, inputs, and the toggle switch
+   • Subtle transitions
+   ========================================================================= */
+
+@font-face {
+    font-family: 'Upheaval';
+    src: url('font/UpheavalPro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Upheaval, 'OCR A Std', monospace;
+    background-color: #f0f2f5;
+    /* Light, neutral page background */
+    color: #333;
+    /* Dark gray text for readability */
+    text-align: center;
+}
+
+/* ------- Headings ------- */
+h1 {
+    font-size: 48px;
+    margin: 16px 0 8px;
+    letter-spacing: 2px;
+    color: #2b2b2b;
+    /* Slightly darker than normal text */
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Mines count text (the "Mines: X" part) */
+h1 span#mines-count {
+    color: #d34836;
+    /* Bright red accent */
+}
+
+/* Game result text (“You Won !!” or “GAME OVER”) */
+#result {
+    font-size: 32px;
+    margin: 12px 0;
+    color: #d34836;
+    /* Match the red accent */
+    letter-spacing: 1px;
+}
+
+/* ====== BOARD CONTAINER ====== */
+#board {
+    width: 416px;
+    /* 8 × (48px tiles + border) = 416 */
+    height: 416px;
+    margin: 0 auto 24px;
+    background-color: #b5b5b5;
+    /* Slightly darker gray board background */
+    border: 4px solid #7a7a7a;
+    border-radius: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ====== TILE STYLES ====== */
+#board div {
+    box-sizing: border-box;
+    position: relative;
+    width: 50px;
+    /* 48px inner + 2px total border */
+    height: 50px;
+    border: 1px solid #e0e0e0;
+    background-color: #d8d8d8;
+    /* Unrevealed tile color */
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.15s, transform 0.1s;
+}
+
+/* Tile hover effect (only when not yet clicked) */
+#board div:hover {
+    background-color: #cfcfcf;
+    transform: translateY(1px);
+}
+
+/* After a tile is clicked */
+.tile-clicked {
+    background-color: #f0f0f0 !important;
+    border: 1px solid #aaa;
+    cursor: default;
+}
+
+/* ====== NUMBER COLORS ====== */
+.x1 {
+    color: #1565c0;
+}
+
+/* Blue for 1 */
+.x2 {
+    color: #2e7d32;
+}
+
+/* Green for 2 */
+.x3 {
+    color: #c62828;
+}
+
+/* Red for 3 */
+.x4 {
+    color: #283593;
+}
+
+/* Navy-blue for 4 */
+.x5 {
+    color: #6a1b9a;
+}
+
+/* Deep purple for 5 */
+.x6 {
+    color: #00897b;
+}
+
+/* Teal for 6 */
+.x7 {
+    color: #000000;
+}
+
+/* Black for 7 */
+.x8 {
+    color: #616161;
+}
+
+/* Gray for 8 */
+
+/* ====== BOMB TILE (when revealed on Game Over) ====== */
+.reveal-bomb {
+    background-color: #ffebee !important;
+    /* Very light red/pink */
+    border-color: #e53935 !important;
+    /* Strong red border */
+    color: #e53935 !important;
+    font-size: 28px;
+}
+
+/* ====== TOGGLE SWITCH (Flag vs. Click Mode) ====== */
+.toggle-switch {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-track {
+    width: 120px;
+    /* Slightly narrower track */
+    height: 48px;
+    /* Slightly shorter track */
+    background-color: #bbb;
+    border-radius: 9999px;
+    position: relative;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-track .icon {
+    position: absolute;
+    font-size: 24px;
+    top: 12px;
+    /* Centered vertically: (48−24)/2 = 12 */
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Position of pickaxe (⛏) when unchecked (click mode) */
+.toggle-track .unlock {
+    left: 70px;
+    opacity: 0.75;
+}
+
+/* Position of flag (🚩) when checked (flag mode) */
+.toggle-track .lock {
+    left: 18px;
+    opacity: 0.75;
+}
+
+.toggle-thumb {
+    position: absolute;
+    top: 4px;
+    /* (48 − 40)/2 = 4 */
+    left: 4px;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+/* When checked, slide thumb right and turn track green */
+.toggle-input:checked+.toggle-track {
+    background-color: #43a047;
+    /* Green accent */
+}
+
+.toggle-input:checked+.toggle-track .toggle-thumb {
+    transform: translateX(72px);
+    /* 120 − 40 − 2×4 = 72 */
+}
+
+/* Show/hide icons */
+.toggle-input:checked+.toggle-track .unlock {
+    display: none;
+}
+
+.toggle-input:not(:checked)+.toggle-track .lock {
+    display: none;
+}
+
+/* ====== GAME SETUP FORM ====== */
+.game-setup-form {
+    margin: 24px auto;
+    padding: 20px 24px;
+    background-color: #fff8e1;
+    /* Soft cream background */
+    border: 2px solid #f9a825;
+    /* Golden yellow border */
+    width: fit-content;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.form-heading {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+}
+
+.mines-input {
+    padding: 8px 12px;
+    font-size: 20px;
+    border: 2px solid #f9a825;
+    border-radius: 4px;
+    width: 80px;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.mines-input:focus {
+    outline: none;
+    border-color: #c17900;
+    box-shadow: 0 0 4px rgba(241, 180, 68, 0.6);
+}
+
+/* ====== CUSTOM BUTTON ====== */
+.custom-button {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-button a {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    background-color: #fb8c00;
+    /* Bright orange */
+    display: block;
+    padding: 12px 28px;
+    border-radius: 6px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 #ffd180, 0 6px 0 #c25e00;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.custom-button a:hover {
+    background-color: #f57c00;
+}
+
+.custom-button a:active {
+    top: 4px;
+    background-color: #ef6c00;
+    box-shadow: inset 0 1px 0 #ffd180, inset 0 -2px 0 #c25e00;
+}
+
+.custom-button:after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: -3px;
+    height: 100%;
+    width: 100%;
+    background-color: #531f01;
+    border-radius: 6px;
+    z-index: -1;
+}
+
+/* ---------------------------------
+     Responsive tweak: ensure board
+     shrinks on small screens
+     --------------------------------- */
+@media (max-width: 500px) {
+    #board {
+        transform: scale(0.8);
+        transform-origin: center top;
+    }
+
+    .game-setup-form {
+        padding: 16px 18px;
+    }
+
+    .mines-input {
+        width: 60px;
+        font-size: 18px;
+    }
+
+    .custom-button a {
+        font-size: 20px;
+        padding: 10px 24px;
+    }
+}

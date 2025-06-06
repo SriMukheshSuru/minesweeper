@@ -10,7 +10,7 @@ var tilesclicked = 0;//goal is click all times except the bomb ones
 var flagenabled = false;
 var gameover = false;
 window.onload = function(){
-    startgame();
+    // startgame();
 }
 
 function setmines(){
@@ -27,6 +27,25 @@ function setmines(){
         }
     }
 }
+
+
+function initializeGame() {
+    // Reset game state
+    board = [];
+    mineslocation = [];
+    tilesclicked = 0;
+    gameover = false;
+
+    // Clear old board if any
+    document.getElementById("board").innerHTML = "";
+
+    // Get user input
+    const input = document.getElementById("mines-input").value;
+    minescount = Math.min(Math.max(parseInt(input), 1), rows * columns - 1); // Clamp value
+    document.getElementById("result").innerText = "";
+    startgame();
+}
+
 
 function startgame(){
     document.getElementById("mines-count").innerText = minescount;
@@ -74,7 +93,11 @@ function clicktile(){
     }
 
     if(mineslocation.includes(tile.id)){
-        alert("GAME OVER");
+        // alert("GAME OVER");
+
+        document.getElementById("result").innerText="GAME OVER";
+        
+
         gameover=true;
         revealmines();
         return;
@@ -138,7 +161,7 @@ function checkmine(r,c){
         checkmine(r+1,c+1);
     }
     if(tilesclicked == (rows*columns) - minescount){
-        document.getElementById("mines-count").innerText="You Won!!";
+        document.getElementById("result").innerText="You Won !!";
         gameover=true;
     }
 }

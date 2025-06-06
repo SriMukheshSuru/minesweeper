@@ -4,18 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minesweeper💣</title>
+    <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="minesweeper.css">
     <script src="minesweeper.js"></script>
 </head>
 <body>
-    <h1>Mines: <span id="mines-count">0</span></h1>
-    <div id="board">
-        <!-- <div class="x1 tile-clicked">1</div> -->
-    </div>
-    <br>
-    <!-- <button id="flag-button">🚩</button>     -->
 
+    <!-- <h2>Enter Number of Mines:</h2>
+    <input type="number" id="mines-input" min="1" max="64" value="10">
+    <button onclick="initializeGame()">Start Game</button> -->
+
+
+    <div class="game-setup-form">
+        <div class="input-row">
+            <h2 class="form-heading">Enter Number of Mines:</h2>
+            <input type="number" id="mines-input" min="1" max="64" value="10" class="mines-input">
     
+            <div ontouchstart="">
+                <div class="custom-button">
+                    <a href="#" onclick="event.preventDefault(); initializeGame()">Start Game</a>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+      
+      
+
+
+
+    <h1 id="heading">Mines: <span id="mines-count">0</span></h1>
+    <h1 id="result"></h1>
+    <div id="board"></div>
+    <br>
 
     <label class="toggle-switch">
         <input type="checkbox" id="flag-button" class="toggle-input"  />
