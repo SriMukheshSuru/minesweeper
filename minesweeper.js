@@ -14,12 +14,6 @@ window.onload = function(){
 }
 
 function setmines(){
-    // mineslocation.push("2-3");
-    // mineslocation.push("2-2");
-    // mineslocation.push("5-6");
-    // mineslocation.push("3-4");
-    // mineslocation.push("1-1");
-
     let minesleft = minescount;
     while(minesleft>0){
         let r = Math.floor(Math.random() * rows);
@@ -57,10 +51,8 @@ function startgame(){
 function setflag(){
     if(flagenabled){
         flagenabled=false;
-        document.getElementById("flag-button").style.backgroundColor = "lightgray";
     }else{
         flagenabled=true;
-        document.getElementById("flag-button").style.backgroundColor = "darkgray";
     }
 }
 

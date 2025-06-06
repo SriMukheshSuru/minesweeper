@@ -1,7 +1,18 @@
+@font-face {
+    font-family: 'Upheaval';
+    src: url('font/UpheavalPro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-family: Upheaval, OCR A Std, monospace;
     text-align: center;
+}
+
+h1{
+    font-size: 60px;
 }
 
 #board{
@@ -12,7 +23,6 @@ body{
     margin:0 auto;
     display: flex;
     flex-wrap: wrap;
-
 }
 
 #board div{
@@ -62,13 +72,104 @@ body{
 }
 
 
-#flag-button{
+/* #flag-button{
     width:100px;
     height: 50px;
     font-size: 30px;
     background-color: lightgray;
     border: none;
+} */
+
+
+
+
+.toggle-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
 }
 
+.toggle-input {
+    display: none;
+}
 
+.toggle-track {
+    width: 144px;
+    /* increased from 96px */
+    height: 72px;
+    /* increased from 48px */
+    background-color: grey;
+    /* rose-400 when off */
+    border-radius: 9999px;
+    position: relative;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 
+/* Both icons: larger font and higher z-index than thumb */
+.toggle-track .icon {
+    position: absolute;
+    font-size: 32px;
+    /* increased from 32px */
+    top: 12px;
+    /* center vertically: (72 − 48)/2 = 12 */
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Place pickaxe (⛏) on right side, approx-centered in that gap */
+.toggle-track .unlock {
+    left: 84px;
+    /* 6px (left margin) + 60px (thumb) + ~18px centering */
+}
+
+/* Place flag (🚩) on left side */
+.toggle-track .lock {
+    left: 22px;
+    /* 6px left margin is fine */
+}
+
+/* The “thumb” circle */
+.toggle-thumb {
+    position: absolute;
+    top: 6px;
+    /* (72 − 60)/2 = 6px */
+    left: 6px;
+    /* left margin = 6px */
+    width: 60px;
+    /* increased from 40px */
+    height: 60px;
+    /* increased from 40px */
+    background-color: #f9fafb;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    z-index: 1;
+}
+
+/* WHEN CHECKED: change track color; slide thumb right */
+.toggle-input:checked+.toggle-track {
+    background-color: #09ad40;
+    /* emerald-500 */
+}
+
+.toggle-input:checked+.toggle-track .toggle-thumb {
+    transform: translateX(72px);
+    /* 144 − 60 − 2×6 = 72 */
+}
+
+/* Show/hide icons based on checked state */
+.toggle-input:checked+.toggle-track .unlock {
+    display: none;
+    /* hide ⛏ when checked (thumb on right) */
+}
+
+.toggle-input:not(:checked)+.toggle-track .lock {
+    display: none;
+    /* hide 🚩 when unchecked (thumb on left) */
+}
+
+/* Hover effect on the thumb */
+.toggle-track:hover .toggle-thumb {
+    transform: scale(0.95) translateX(var(--tw-translate-x, 0));
+}
